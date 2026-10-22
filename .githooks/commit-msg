@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Require Conventional Commits with a scope: type(scope): subject
+line=$(grep -v '^#' "$1" | sed -n 1p)
+
+case "$line" in
+    "Merge "*|"Revert "*|"fixup! "*|"squash! "*|"amend! "*) exit 0 ;;
+esac
+
+if ! printf '%s\n' "$line" | grep -Eq '^(feat|fix|docs|style|refactor|perf|test|chore)\([a-zA-Z0-9._/-]+\)!?: .+'; then
+    echo "Commit message must follow Conventional Commits with a scope: type(scope): subject" >&2
+    echo "Types: feat fix docs style refactor perf test chore" >&2
+    echo "Got: $line" >&2
+    exit 1
+fi

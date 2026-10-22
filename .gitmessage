@@ -1,0 +1,4 @@
+# type(scope): subject
+#
+# Types: feat fix docs style refactor perf test chore
+# Mark breaking changes with ! after the scope: feat(api)!: subject
